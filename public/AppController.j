@@ -16,24 +16,19 @@
 - (void)applicationDidFinishLaunching:(CPNotification)aNotification
 {
     var theWindow = [[CPWindow alloc] initWithContentRect:CGRectMakeZero() styleMask:CPBorderlessBridgeWindowMask],
-        contentView = [theWindow contentView];
+        contentView = [theWindow contentView],
+        // load the wallpaper in the Resources directory
+        mainBundle = [CPBundle mainBundle],
+        imgPath = [mainBundle pathForResource:"wallpaper.jpg"],
+        img = [[CPImage alloc] initWithContentsOfFile:imgPath],
+        backgroundView = [[CPImageView alloc] initWithFrame:CGRectMake(0, 0, 1280, 800)];
 
-    var label = [[CPTextField alloc] initWithFrame:CGRectMakeZero()];
-
-    [label setStringValue:@"Hello World!"];
-    [label setFont:[CPFont boldSystemFontOfSize:24.0]];
-
-    [label sizeToFit];
-
-    [label setAutoresizingMask:CPViewMinXMargin | CPViewMaxXMargin | CPViewMinYMargin | CPViewMaxYMargin];
-    [label setCenter:[contentView center]];
-
-    [contentView addSubview:label];
-
+    [backgroundView setImage:img];
+    [contentView addSubview:backgroundView];
     [theWindow orderFront:self];
 
     // Uncomment the following line to turn on the standard menu bar.
-    //[CPMenu setMenuBarVisible:YES];
+    // [CPMenu setMenuBarVisible:YES];
 }
 
 @end
